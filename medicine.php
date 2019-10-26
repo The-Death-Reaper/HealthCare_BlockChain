@@ -19,10 +19,14 @@
 
 	$GenerateKeyCommand = escapeshellcmd('python3 generateKeys.py');
 	$keys = shell_exec($GenerateKeyCommand);
-	$keys = explode(" ", $keys);
-	$privateKey = $keys[1];
-	$publicKey = $keys[0];
+	$keys = explode("|", $keys);
+	$publicKeyE = $keys[1];
+	$publicKeyN = $keys[0];
+	$privateKey = $keys[2];
 
 
-	$EncryptCommand = escapeshellcmd('python3 EncryptMessage.py $publicKey $patientName $DoB $OrganDonor')
+	$EncryptCommand = escapeshellcmd('python3 EncryptMessage.py $publicKeyN $publicKeyE $patientName $DoB $OrganDonor');
+	$EncryptMessage = shell_exec($EncryptCommand);
+	$EncryptMessage = explode("|",$EncryptMessage);
+	
 ?>

@@ -1,20 +1,17 @@
+
 import sys
-import Crypto
-from Crypto.PublicKey import RSA
-from Crypto import random
-import ast
+import math
 
+def encrypt(message,n,e):
+	st=''
+	for i in message:
+		st+=chr(pow(ord(i),e,n))
+	return st
+cmdline = sys.argv[1:]
+n=int(cmdline[0])
+e=int(cmdline[1])
+message=cmdline[2:]
+encrypted = [encrypt(i,n,e) for i in message]
+for i in encrypted:
+	print(i,end="|")
 
-cmdline = sys.argv
-messages = cmdline[3:]
-privateKey = cmdline[2]
-
-publicKeyn = int(cmdline[1][10:len(cmdline[1])-1])
-publicKeye = int(cmdline[2][0:len(cmdline[2])-1])
-
-'''
-messages = [i.encode('ASCII').strip() for i in messages]
-messages = [rsa.encrypt(i,public) for i in messages]
-print(messages)
-messages = [i.decode('ASCII') for i in messages]
-'''
